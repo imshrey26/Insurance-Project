@@ -25,7 +25,7 @@ class InsuranceException(Exception):
         [{file_name}] at
         try block line number : [{try_block_line_number}]
         and exception block line number : [{exception_block_line_number}]
-        error message : [{error_message}]
+        error message : [{error}]
         """
         return error_message
     
