@@ -6,6 +6,8 @@ from src.entity import config_entity
 from src.entity import artifact_entity
 from src.components.data_ingestion import DataIngestion 
 from src.components.data_validation import DataValidation 
+from src.components.data_transformation import DataTransformation
+
 import os,sys
 
 # def test_logger_and_expection():
@@ -30,10 +32,12 @@ if __name__ == "__main__":
     try:
     #     get_collection_as_dataframe(database_name='INSURANCE',collection_name='INSURANCE_PROJECT')
         training_pipeline_config = config_entity.TrainingPipelineConfig()
+
+        # Data Ingestion
         data_ingestion_config = config_entity.DataIngestionConfig(training_pipeline_config=training_pipeline_config)
         print(data_ingestion_config.to_dict())
 
-        # Data Ingestion
+       
         data_ingestion = DataIngestion(data_ingestion_config=data_ingestion_config)
         data_ingestion_artifacts = data_ingestion.initiate_data_ingestion()
 
@@ -43,6 +47,13 @@ if __name__ == "__main__":
         data_validation = DataValidation(data_validation_config=data_validation_config,data_ingestion_artifact=data_ingestion_artifacts)
         
         data_validation_artifacts = data_validation.initiate_data_validation()
+
+        # Data Transformation
+
+        data_transformation_config =config_entity.DataTransformationConfig(training_pipeline_config=training_pipeline_config)
+        data_transformation = DataTransformation(data_transformation_config=data_transformation_config, 
+        data_ingestion_artifact=data_ingestion_artifacts)
+        data_transformation_artifacts = data_transformation.initiate_data_transformation()
 
     except Exception as e:
         print(e)
