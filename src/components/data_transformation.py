@@ -2,6 +2,7 @@ import os,sys
 import numpy as np
 import pandas as pd
 from src import utils
+from src.logger import logging
 from src.entity import config_entity,artifact_entity
 from src.exception import InsuranceException
 from sklearn.pipeline import Pipeline
@@ -20,6 +21,7 @@ class DataTransformation:
                  data_ingestion_artifact:artifact_entity.DataIngestionArtifact):
         
         try:
+            logging.info(f"{'>>'*20} Model Trainer {'<<'*20}")
             self.data_transformation_config = data_transformation_config
             self.data_ingestion_artifact = data_ingestion_artifact
 
