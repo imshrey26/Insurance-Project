@@ -68,7 +68,7 @@ def load_object(file_path:str)->object:
         if not os.path.exists(file_path):
             raise Exception(f"The file: {file_path} is not available")
         with open(file_path,"rb") as file_obj:
-            return dill.open(file_obj)
+            return dill.load(file_obj)
     except Exception as e:
         raise InsuranceException(e, sys)
     
